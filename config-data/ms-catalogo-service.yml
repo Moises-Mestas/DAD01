@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8085
 
 # Configuración para H2 en memoria (por defecto)
 spring:
