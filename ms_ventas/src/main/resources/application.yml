@@ -2,13 +2,7 @@ spring:
   application:
     name: ms-ventas-service
   config:
-    import: optional:configserver:http://localhost:7070  # Aseg�rate de que esta URL est� bien configurada
+    import: optional:configserver:http://root:123456@localhost:7070
   profiles:
     active: development
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8090/eureka
-server:
-  port: 8082
