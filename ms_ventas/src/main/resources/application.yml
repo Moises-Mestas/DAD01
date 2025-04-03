@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ms-ventas-service
+  config:
+    import: optional:configserver:http://localhost:7070  # Asegúrate de que esta URL esté bien configurada
+  profiles:
+    active: development
