@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Productos</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Formulario */
+        form {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        form input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        /* Tabla de resultados */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+
+        .no-results {
+            text-align: center;
+            color: #ff0000;
+            font-weight: bold;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Filtro de Productos</h1>
+
+
+<form id="filterForm">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" placeholder="Buscar por nombre...">
+
+    <label for="code">Código:</label>
+    <input type="text" id="code" name="code" placeholder="Buscar por código...">
+
+    <label for="creationDate">Fecha de Creación (YYYY-MM):</label>
+    <input type="text" id="creationDate" name="creationDate" placeholder="2024-02">
+
+    <button type="submit">Filtrar</button>
+</form>
+
+
+<h2>Resultados</h2>
+<table id="resultTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Código</th>
+        <th>Fecha de Creación</th>
+        <th>Categoría</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+<div class="no-results" id="noResultsMessage" style="display: none;">No se encontraron productos</div>
+
+<script>
+
+    const productos = [
+        { id: 1, name: 'Televisor LG 55 OLED', code: 'TVLG55OLED', creationDate: '2024-02', category: 'Electrónica' },
+        { id: 2, name: 'Laptop Dell Inspiron', code: 'LAPTOPDELL', creationDate: '2023-11', category: 'Computadoras' },
+        { id: 3, name: 'Laptop Dell XPS 13', code: 'LAPXPS13', creationDate: '2024-04', category: 'Computadoras' },
+        { id: 4, name: 'Smartphone Samsung S24', code: 'SMS24', creationDate: '2024-03', category: 'Electrónica' },
+        { id: 5, name: 'Auriculares Sony WH-1000XM5', code: 'SONYWH1000', creationDate: '2024-01-15', category: 'Accesorios' },
+        { id: 6, name: 'Mouse Logitech MX Master 3', code: 'LOGMXM3', creationDate: '2023-12-20', category: 'Accesorios' },
+        { id: 7, name: 'Teclado Mecánico Razer', code: 'RAZKB', creationDate: '2023-11-10', category: 'Accesorios' },
+        { id: 8, name: 'Monitor Samsung Curvo 34"', code: 'SAMSUNG34C', creationDate: '2023-10-25', category: 'Electrónica' },
+        { id: 9, name: 'Tablet iPad Pro 12.9"', code: 'IPADPRO12', creationDate: '2023-09-18', category: 'Computadoras' },
+        { id: 10, name: 'Cámara Canon EOS R50', code: 'CANEOSR50', creationDate: '2023-08-05', category: 'Fotografía' },
+        { id: 11, name: 'Impresora HP LaserJet Pro', code: 'HPLJP', creationDate: '2023-07-22', category: 'Oficina' },
+        { id: 12, name: 'Disco SSD Samsung 2TB', code: 'SAMSSD2TB', creationDate: '2023-06-15', category: 'Almacenamiento' },
+        { id: 13, name: 'Router Wi-Fi 6 TP-Link', code: 'TPLWIFI6', creationDate: '2023-05-30', category: 'Redes' },
+        { id: 14, name: 'Altavoz Bluetooth JBL Flip 6', code: 'JBLFLIP6', creationDate: '2023-04-14', category: 'Accesorios' },
+        { id: 15, name: 'Smartwatch Apple Watch 9', code: 'APPWATCH9', creationDate: '2023-03-09', category: 'Electrónica' },
+        { id: 16, name: 'Proyector Epson 4K', code: 'EPS4K', creationDate: '2023-02-27', category: 'Electrónica' }
+    ];
+
+
+    document.getElementById('filterForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+
+        const name = document.getElementById('name').value.toLowerCase();
+        const code = document.getElementById('code').value.toLowerCase();
+        const creationDate = document.getElementById('creationDate').value;
+
+
+        const productosFiltrados = productos.filter(function (producto) {
+            const matchName = producto.name.toLowerCase().includes(name);
+            const matchCode = producto.code.toLowerCase().includes(code);
+            const matchCreationDate = producto.creationDate.includes(creationDate);
+
+            return matchName && matchCode && matchCreationDate;
+        });
+
+
+        const resultTable = document.getElementById('resultTable').getElementsByTagName('tbody')[0];
+        resultTable.innerHTML = '';
+
+        productosFiltrados.forEach(function (producto) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${producto.id}</td><td>${producto.name}</td><td>${producto.code}</td><td>${producto.creationDate}</td><td>${producto.category}</td>`;
+            resultTable.appendChild(row);
+        });
+
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        if (productosFiltrados.length === 0) {
+            noResultsMessage.style.display = 'block';
+        } else {
+            noResultsMessage.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
