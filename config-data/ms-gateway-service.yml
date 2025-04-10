@@ -30,7 +30,7 @@ spring:
         - id: ms-boleta-service
           uri: lb://ms-boleta-service
           predicates:
-            - Path=/boleta/**, /productos1/**
+            - Path=/boletas/**, /productos1/**
 
 
 
