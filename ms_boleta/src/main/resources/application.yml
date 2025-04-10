@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: ms-boleta-service
+  config:
+    import: optional:configserver:http://root:123456@localhost:7070
+  profiles:
+    active: development
+

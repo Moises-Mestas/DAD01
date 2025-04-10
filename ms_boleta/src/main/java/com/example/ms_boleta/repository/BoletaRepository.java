@@ -1,4 +1,8 @@
 package com.example.ms_boleta.repository;
 
-public interface BoletaRepository {
+import com.example.ms_boleta.entity.Boleta;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BoletaRepository extends JpaRepository<Boleta, Long> {
+    // Métodos personalizados si es necesario
 }
