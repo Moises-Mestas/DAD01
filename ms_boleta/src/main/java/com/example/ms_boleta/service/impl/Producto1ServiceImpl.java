@@ -6,6 +6,8 @@ import com.example.ms_boleta.service.Producto1Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class Producto1ServiceImpl implements Producto1Service {
 
@@ -20,5 +22,10 @@ public class Producto1ServiceImpl implements Producto1Service {
     @Override
     public Producto1 obtenerProducto(Long id) {
         return producto1Repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Producto1> obtenerTodosProductos() {
+        return List.of();
     }
 }
