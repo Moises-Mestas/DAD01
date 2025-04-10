@@ -1,62 +1,87 @@
 package com.example.ms_boleta.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 
 @Entity
+@Data
 public class Boleta {
+
     @Id
-    private Long idBoleta;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne
-    private Producto1 producto1;  // Relación con Producto1
+    @NotNull
+    private String numero;
 
-    private String fechaCreacion;
+    private String cliente;
+
+    private String fecha;
+
+    private Double total;
 
     public Boleta() {
 
     }
 
-    public Long getIdBoleta() {
-        return idBoleta;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdBoleta(Long idBoleta) {
-        this.idBoleta = idBoleta;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Producto1 getProducto1() {
-        return producto1;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setProducto1(Producto1 producto1) {
-        this.producto1 = producto1;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
-    public String getFechaCreacion() {
-        return fechaCreacion;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
-    public Boleta(Long idBoleta, Producto1 producto1, String fechaCreacion) {
-        this.idBoleta = idBoleta;
-        this.producto1 = producto1;
-        this.fechaCreacion = fechaCreacion;
+    public String getFecha() {
+        return fecha;
+    }
 
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Boleta(Long id, String numero, String cliente, String fecha, Double total) {
+        this.id = id;
+        this.numero = numero;
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.total = total;
     }
 
     @Override
     public String toString() {
         return "Boleta{" +
-                "idBoleta=" + idBoleta +
-                ", producto1=" + producto1 +
-                ", fechaCreacion='" + fechaCreacion + '\'' +
+                "id=" + id +
+                ", numero='" + numero + '\'' +
+                ", cliente='" + cliente + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", total=" + total +
                 '}';
     }
-
 }

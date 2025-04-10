@@ -3,9 +3,10 @@ package com.example.ms_boleta.controller;
 import com.example.ms_boleta.entity.Producto1;
 import com.example.ms_boleta.service.Producto1Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/productos1")
@@ -14,21 +15,22 @@ public class Producto1Controller {
     @Autowired
     private Producto1Service producto1Service;
 
-    // Crear producto
     @PostMapping
-    public Producto1 crearProducto(@RequestBody Producto1 producto1) {
-        return producto1Service.crearProducto(producto1);
+    public ResponseEntity<Producto1> crearProducto(@RequestBody Producto1 producto) {
+        Producto1 nuevoProducto = producto1Service.guardarProducto(producto);
+        return ResponseEntity.status(201).body(nuevoProducto);
     }
 
-    // Obtener producto por ID
-    @GetMapping("/{id}")
-    public Producto1 obtenerProducto(@PathVariable Long id) {
-        return producto1Service.obtenerProducto(id);
+    @GetMapping("/{nombre}")
+    public ResponseEntity<Producto1> obtenerProductoPorNombre(@PathVariable String nombre) {
+        Optional<Producto1> producto = producto1Service.obtenerProductoPorNombre(nombre);
+        return producto.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Obtener todos los productos
     @GetMapping
-    public List<Producto1> obtenerTodosProductos() {
-        return producto1Service.obtenerTodosProductos();
+    public ResponseEntity<Iterable<Producto1>> obtenerTodosLosProductos() {
+        Iterable<Producto1> productos = producto1Service.obtenerTodosLosProductos();
+        return ResponseEntity.ok(productos);
     }
 }

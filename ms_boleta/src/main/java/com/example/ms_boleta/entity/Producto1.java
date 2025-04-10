@@ -1,29 +1,38 @@
 package com.example.ms_boleta.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 @Entity
+@Data
 public class Producto1 {
-    @Id
-    private Long idProducto;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
     private String nombre;
-    private String categoria;
+
     private String descripcion;
+
     private Double precio;
+
+    private Integer cantidad;
 
     public Producto1() {
 
     }
 
-    public Long getIdProducto() {
-        return idProducto;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setIdProducto(Long idProducto) {
-        this.idProducto = idProducto;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -32,14 +41,6 @@ public class Producto1 {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public String getDescripcion() {
@@ -58,22 +59,30 @@ public class Producto1 {
         this.precio = precio;
     }
 
-    public Producto1(Long idProducto, String nombre, String categoria, String descripcion, Double precio) {
-        this.idProducto = idProducto;
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Producto1(Long id, String nombre, String descripcion, Double precio, Integer cantidad) {
+        this.id = id;
         this.nombre = nombre;
-        this.categoria = categoria;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     @Override
     public String toString() {
         return "Producto1{" +
-                "idProducto=" + idProducto +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", categoria='" + categoria + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
+                ", cantidad=" + cantidad +
                 '}';
     }
 }

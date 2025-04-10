@@ -15,17 +15,17 @@ public class BoletaServiceImpl implements BoletaService {
     private BoletaRepository boletaRepository;
 
     @Override
-    public Boleta crearBoleta(Boleta boleta) {
+    public Boleta guardarBoleta(Boleta boleta) {
         return boletaRepository.save(boleta);
     }
 
     @Override
-    public Boleta obtenerBoleta(Long id) {
-        return boletaRepository.findById(id).orElse(null);
+    public List<Boleta> obtenerTodasLasBoletas() {
+        return boletaRepository.findAll();
     }
 
     @Override
-    public List<Boleta> obtenerTodasBoletas() {
-        return List.of();
+    public Boleta obtenerBoletaPorId(Long id) {
+        return boletaRepository.findById(id).orElse(null);
     }
 }
