@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>ms-pedido</artifactId>
+    <artifactId>ms_pedido</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ms-pedido</name>
     <description>ms-pedido</description>
@@ -40,8 +40,12 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.2</version>
+            <version>2.1.0</version>
         </dependency>
+
+
+
+
 
         <!-- Dependencia para H2 (Base de datos en memoria) -->
         <dependency>
